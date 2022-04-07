@@ -1,11 +1,32 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const MobileMenu = ({ onToggle }) => {
     return (
-        <div className="fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 z-50">
-            <aside className="bg-white h-screen w-4/6 px-[5%]">
+        <motion.div
+            initial={{
+                opacity: 0,
+            }}
+            animate={{
+                opacity: 1,
+            }}
+            transition={{
+                duration: 0.5,
+            }}
+            exit={{ opacity: 0 }}
+            className="fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 z-50"
+        >
+            <motion.aside
+                initial={{ translateX: -100 }}
+                animate={{ translateX: 0 }}
+                exit={{ translateX: -100 }}
+                transition={{
+                    duration: 0.3,
+                }}
+                className="bg-white h-screen w-4/6 px-[5%]"
+            >
                 <div className="py-6">
                     <span onClick={onToggle}>
                         <img
@@ -37,8 +58,8 @@ const MobileMenu = ({ onToggle }) => {
                         </a>
                     </Link>
                 </nav>
-            </aside>
-        </div>
+            </motion.aside>
+        </motion.div>
     );
 };
 

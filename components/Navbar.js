@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
+import { AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
-    const [isMobileManuOpen, setIsMobileManuOpen] = useState(true);
+    const [isMobileManuOpen, setIsMobileManuOpen] = useState(false);
 
     const toggleMobileMenuHandler = () => {
         setIsMobileManuOpen((prev) => !prev);
@@ -13,9 +14,11 @@ const Navbar = () => {
 
     return (
         <>
-            {isMobileManuOpen && (
-                <MobileMenu onToggle={toggleMobileMenuHandler} />
-            )}
+            <AnimatePresence>
+                {isMobileManuOpen && (
+                    <MobileMenu onToggle={toggleMobileMenuHandler} />
+                )}
+            </AnimatePresence>
             <header className="flex items-center justify-between h-20 lg:h-28 max-w-7xl w-10/12 mx-auto lg:border-b">
                 <div className="flex items-center gap-3 lg:gap-10 h-full">
                     <button
@@ -33,27 +36,27 @@ const Navbar = () => {
 
                     <nav className="hidden lg:flex items-center gap-8 h-full">
                         <Link href="/">
-                            <a className="border-b-2 border-transparent hover:border-orange-500 h-full flex items-center transition-all duration-200">
+                            <a className="h-full flex items-center navlink relative">
                                 Collections
                             </a>
                         </Link>
                         <Link href="/">
-                            <a className="border-b-2 border-transparent hover:border-orange-500 h-full flex items-center transition-all duration-200">
+                            <a className="h-full flex items-center navlink relative">
                                 Men
                             </a>
                         </Link>
                         <Link href="/">
-                            <a className="border-b-2 border-transparent hover:border-orange-500 h-full flex items-center transition-all duration-200">
+                            <a className="h-full flex items-center navlink relative">
                                 Women
                             </a>
                         </Link>
                         <Link href="/">
-                            <a className="border-b-2 border-transparent hover:border-orange-500 h-full flex items-center transition-all duration-200">
+                            <a className="h-full flex items-center navlink relative">
                                 About
                             </a>
                         </Link>
                         <Link href="/">
-                            <a className="border-b-2 border-transparent hover:border-orange-500 h-full flex items-center transition-all duration-200">
+                            <a className="h-full flex items-center navlink relative">
                                 Contact
                             </a>
                         </Link>
