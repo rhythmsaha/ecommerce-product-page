@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import { useState } from "react";
+import { useCartCtx } from "../context/cartContext";
 
 function ProductDetails({
     name,
@@ -8,7 +9,24 @@ function ProductDetails({
     price,
     discount,
     originalPrice,
+    id,
+    images,
 }) {
+    const [quantity, setQuantity] = useState(1);
+    const { addToCartHandler } = useCartCtx();
+
+    const increaseQuantityHandler = () => {
+        if (quantity > 0 && quantity < 5) {
+            return setQuantity((prev) => prev + 1);
+        }
+    };
+
+    const decreaseQuantityHandler = () => {
+        if (quantity > 1) {
+            return setQuantity((prev) => prev - 1);
+        }
+    };
+
     return (
         <section className="mx-auto w-11/12 px-2 lg:w-full lg:px-6 xl:px-8 lg:py-6 xl:py-10">
             <div>
@@ -18,7 +36,7 @@ function ProductDetails({
                     </span>
 
                     <div className="space-y-3 mt-3 xl:space-y-6 xl:mt-6">
-                        <h1 className="font-bold capitalize text-3xl xl:text-5xl tracking-wide text-gray-900">
+                        <h1 className="font-bold capitalize text-3xl xl:text-5xl tracking-wide text-gray-900 xl:leading-[1.35]">
                             {name}
                         </h1>
                         <p className="text-gray-500 xl:text-lg">
@@ -45,16 +63,34 @@ function ProductDetails({
 
             <div className="flex flex-col gap-4 mt-8 lg:flex-row w-full">
                 <div className="bg-gray-100 flex justify-between px-5 py-3 rounded-lg items-center lg:min-w-[128px] lg:py-3">
-                    <button className="">
+                    <button
+                        className="h-full block cursor-pointer lg:hover:opacity-70 transition duration-300"
+                        onClick={decreaseQuantityHandler}
+                    >
                         <img src="/images/icon-minus.svg" alt="minus" />
                     </button>
-                    <span>0</span>
-                    <button>
+
+                    <span className="font-bold">{quantity}</span>
+
+                    <button
+                        onClick={increaseQuantityHandler}
+                        className="h-full block cursor-pointer lg:hover:opacity-70 transition duration-300"
+                    >
                         <img src="/images/icon-plus.svg" alt="icon-plus" />
                     </button>
                 </div>
 
-                <button className="flex items-center justify-center gap-2 bg-orange-500 text-white px-5 py-3 lg:py-3 rounded-lg font-semibold tracking-wide w-full lg:w-full">
+                <button
+                    className="flex items-center justify-center gap-2 bg-orange-500 text-white px-5 py-3 lg:py-3 rounded-lg font-semibold tracking-wide w-full lg:w-full lg:hover:bg-orange-300 transition duration-300"
+                    onClick={addToCartHandler.bind(null, {
+                        name,
+                        price,
+                        id,
+                        quantity,
+                        images,
+                    })}
+                    disabled={quantity < 1}
+                >
                     <svg
                         width="22"
                         height="20"

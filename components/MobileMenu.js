@@ -19,9 +19,9 @@ const MobileMenu = ({ onToggle }) => {
             className="fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 z-50"
         >
             <motion.aside
-                initial={{ translateX: -100 }}
-                animate={{ translateX: 0 }}
-                exit={{ translateX: -100 }}
+                initial={{ x: -100 }}
+                animate={{ x: 0 }}
+                exit={{ x: -100 }}
                 transition={{
                     duration: 0.3,
                 }}

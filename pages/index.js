@@ -1,4 +1,7 @@
+import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
+import { useState } from "react";
+import Cart from "../components/Cart";
 import DesktopImageSlider from "../components/DesktopImageSlider";
 import ImageSlider from "../components/ImageSlider";
 import Navbar from "../components/Navbar";
@@ -38,6 +41,12 @@ export default function Home() {
         originalPrice: 1299.0,
     };
 
+    const [showCart, setShowCart] = useState(false);
+
+    const toggleCartHandler = () => {
+        setShowCart((prev) => !prev);
+    };
+
     return (
         <>
             <Head>
@@ -50,8 +59,11 @@ export default function Home() {
             </Head>
 
             <main className="">
-                <Navbar />
-                <section className="grid gap-4 lg:gap-16 lg:grid-cols-2 lg:max-w-6xl lg:mx-auto  lg:mt-16  lg:w-9/12">
+                <Navbar toggleCart={toggleCartHandler} />
+
+                <section className="grid gap-4 lg:gap-16 lg:grid-cols-2 lg:max-w-6xl lg:mx-auto  lg:pt-16  lg:w-9/12 relative">
+                    <AnimatePresence>{showCart && <Cart />}</AnimatePresence>
+
                     <div className="lg:hidden">
                         <ImageSlider images={product.images} />
                     </div>
@@ -60,15 +72,7 @@ export default function Home() {
                         <DesktopImageSlider images={product.images} />
                     </div>
 
-                    <ProductDetails
-                        name={product.name}
-                        category={product.category}
-                        description={product.description}
-                        price={product.price}
-                        discount={product.discount}
-                        originalPrice={product.originalPrice}
-                        id={product.id}
-                    />
+                    <ProductDetails {...product} />
                 </section>
             </main>
         </>

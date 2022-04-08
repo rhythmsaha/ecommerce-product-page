@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -17,12 +16,11 @@ const ImageSlider = ({ images }) => {
                 infiniteLoop
             >
                 {images.map(({ id, url }) => (
-                    <div key={id} className="w-full h-80 md:h-[400px]">
-                        <Image
+                    <div key={id} className="w-full h-80 md:h-[400px] relative">
+                        <img
                             src={url}
                             alt={url}
-                            layout="fill"
-                            objectFit="cover"
+                            className="object-cover object-center h-full w-full"
                         />
                     </div>
                 ))}

@@ -18,7 +18,12 @@ const DesktopImageSlider = ({ images }) => {
                         key={id}
                         className="relative w-full overflow-hidden rounded-3xl aspect-square"
                     >
-                        <img src={url} alt={url} layout="fill" />
+                        <img
+                            src={url}
+                            alt={url}
+                            layout="fill"
+                            className="rounded-3xl"
+                        />
                     </div>
                 ))}
             </Carousel>
@@ -34,7 +39,7 @@ const customRenderThumb = (children) =>
             <img
                 src={`/images/image-product-${id + 1}-thumbnail.jpg`}
                 alt="dsdsad"
-                key={item.id}
+                key={id}
             />
         );
     });

@@ -4,9 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { AnimatePresence } from "framer-motion";
+import { useCartCtx } from "../context/cartContext";
 
-const Navbar = () => {
+const Navbar = ({ toggleCart }) => {
     const [isMobileManuOpen, setIsMobileManuOpen] = useState(false);
+    const { totalQuantity } = useCartCtx();
 
     const toggleMobileMenuHandler = () => {
         setIsMobileManuOpen((prev) => !prev);
@@ -32,7 +34,11 @@ const Navbar = () => {
                         />
                     </button>
 
-                    <img src={"/images/logo.svg"} alt="logo" className="" />
+                    <img
+                        src={"/images/logo.svg"}
+                        alt="logo"
+                        className="cursor-pointer"
+                    />
 
                     <nav className="hidden lg:flex items-center gap-8 h-full">
                         <Link href="/">
@@ -64,10 +70,12 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center gap-6">
-                    <button className="relative">
-                        <span className="absolute top-0 right-0 -translate-y-1 translate-x-2 bg-orange-500 text-white text-[8px] w-4 h-4 flex justify-center items-center  rounded-full">
-                            0
-                        </span>
+                    <button className="relative" onClick={toggleCart}>
+                        {totalQuantity > 0 && (
+                            <span className="absolute top-0 right-0 -translate-y-1 translate-x-2 bg-orange-500 text-white text-[8px] w-4 h-4 flex justify-center items-center  rounded-full">
+                                {totalQuantity}
+                            </span>
+                        )}
                         <img
                             src="/images/icon-cart.svg"
                             alt="cart-icon"
@@ -75,7 +83,7 @@ const Navbar = () => {
                         />
                     </button>
 
-                    <span className="h-7 w-7 rounded-full ">
+                    <span className="h-7 lg:h-9 w-7 lg:w-9 rounded-full lg:border-2 border-transparent hover:border-orange-500 cursor-pointer  transition duration-300">
                         <img
                             src="/images/image-avatar.png"
                             alt="avatar"
